@@ -124,6 +124,15 @@ input{
         <input type="number" inputmode="decimal" id="regenTime" placeholder="Enter Service Time">
     </div>
 
+<div class="input-group">
+    <label for="regenPeriod">Regeneration Period (Days)</label>
+    <input type="number"
+           inputmode="decimal"
+           id="regenPeriod"
+           value="1"
+           placeholder="Enter Regeneration Period">
+</div>
+
     <div class="result-card">
 
         <div class="result">
@@ -152,8 +161,13 @@ function calculate() {
     var finalHardness = parseFloat(document.getElementById("finalHardness").value) || 0;
     var flowRate = parseFloat(document.getElementById("flowRate").value) || 0;
     var regenTime = parseFloat(document.getElementById("regenTime").value) || 0;
+    var regenPeriod = parseFloat(document.getElementById("regenPeriod").value) || 1;
 
-    var resin = ((initialHardness - finalHardness) / 1000) * flowRate * regenTime / 30;
+    var resin =
+        ((initialHardness - finalHardness) / 1000) *
+        flowRate *
+        regenTime *
+        regenPeriod / 30;
 
     if (resin < 0) {
         resin = 0;
@@ -171,6 +185,7 @@ window.onload = function() {
     document.getElementById("finalHardness").oninput = calculate;
     document.getElementById("flowRate").oninput = calculate;
     document.getElementById("regenTime").oninput = calculate;
+    document.getElementById("regenPeriod").oninput = calculate;
 
     calculate();
 };
